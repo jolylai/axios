@@ -3,7 +3,9 @@ title: XMLHttpRequest
 order: 2
 ---
 
-## GET
+## 请求
+
+### GET
 
 用`XMLHttpRequest` 向 `http://www.mocky.io/v2/5e01ea3f2f00007d97dcd401` 接口发出一个 get 请求
 
@@ -56,7 +58,7 @@ xhr.open('get', url, true);
 xhr.send(null);
 ```
 
-## POST 请求
+### POST 请求
 
 首先将 Content-Type 头部信息设置为 application/x-www-form-urlencoded，也就是表单 提交时的内容类型，其次是以适当的格式创建一个字符串。
 
@@ -81,7 +83,9 @@ const data = serialize({ pageNumber: 1, pageSize: 10 });
 xhr.send(data);
 ```
 
-### FormData
+### 请求数据
+
+#### FormData
 
 FormData 为序列化表单以及创建与表单格式相同的数据(用于通过 XHR 传输)提供了便利。
 
@@ -149,7 +153,11 @@ xhr.onreadystatechange = function() {
 - `status`:响应的 HTTP 状态。
 - `statusText`:HTTP 状态的说明。
 
-无论内容类型是什么，响应主体的内容都会保存到 responseText 属性中;而 对于非 XML 数据而言，responseXML 属性的值将为 null。
+无论内容类型是什么，响应主体的内容都会保存到 `responseText` 属性中;而 对于非 `XML` 数据而言，`responseXML` 属性的值将为 `null`。
+
+**TODO**
+
+- [ ] `responseText` 和 `response` 的区别
 
 ## 超时设定
 

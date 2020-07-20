@@ -127,9 +127,11 @@ axios({
 
 最终 `url` 为 `wwww.google.com?bar=foo&a=1`
 
+## [encodeURIComponent](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent)
+
 ## URLSearchParams
 
-URLSearchParams 接口定义了一些实用的方法来处理 URL 的查询字符串。
+[URLSearchParams](https://developer.mozilla.org/zh-CN/docs/Web/API/URLSearchParams) 接口定义了一些实用的方法来处理 URL 的查询字符串。
 
 ```js
 var paramsString = 'q=URLUtils.searchParams&topic=api';

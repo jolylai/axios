@@ -6,4 +6,5 @@ export interface RequestConfig {
   data?: any;
   params?: any;
   headers?: any;
+  responseType?: XMLHttpRequestResponseType;
 }
