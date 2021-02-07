@@ -22,6 +22,8 @@ footer: Copyright © 2020
 
 ## 参考
 
+- [Axios](https://github.com/axios/axios)
+- [umi-request](https://github.com/umijs/umi-request)
 - [TypeScript 重构 Axios](https://zhuanlan.zhihu.com/p/50859466)
 - [缓存](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=zh-cn)
 - [图解 HTTP 缓存](https://juejin.im/post/5eb7f811f265da7bbc7cc5bd#heading-0)

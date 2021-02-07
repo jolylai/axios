@@ -1,6 +1,6 @@
 import { isDate, isObject, isURLSearchParams } from '../utils';
 
-function encode(val: string) {
+function encode(val) {
   return encodeURIComponent(val)
     .replace(/%40/gi, '@')
     .replace(/%3A/gi, ':')
@@ -11,16 +11,12 @@ function encode(val: string) {
     .replace(/%5D/gi, ']');
 }
 
-const buildURL = (
-  url: string,
-  params?: any,
-  paramsSerializer?: (params: any) => string,
-) => {
+const buildURL = (url, params, paramsSerializer) => {
   if (!params) {
     return url;
   }
 
-  const parts: string[] = [];
+  const parts = [];
 
   let serializedParams;
 
