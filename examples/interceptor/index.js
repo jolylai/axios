@@ -1,12 +1,3 @@
----
-title: 拦截器
----
-
-## 前言
-
-## InterceptorManager
-
-```js
 function InterceptorManager() {
   this.handlers = [];
 }
@@ -24,22 +15,14 @@ InterceptorManager.prototype.eject = function eject(id) {
 };
 
 InterceptorManager.prototype.forEach = function forEach(fn) {
-  this.handlers.forEach(handler => {
-    if (handler != null) {
+  this.handlers.forEach(function forEachHandler(handler) {
+    if (handler) {
       fn(handler);
     }
   });
 };
 
-export default InterceptorManager;
-```
-
-## Axios
-
-```js
-import InterceptorManager from './InterceptorManager';
-
-function Axios(instanceConfig) {
+function Axios() {
   this.interceptors = {
     request: new InterceptorManager(),
     response: new InterceptorManager(),
@@ -47,28 +30,25 @@ function Axios(instanceConfig) {
 }
 
 Axios.prototype.request = function request(config) {
-  const chain = [undefined, undefined];
+  const chain = [];
 
-  const request = Promise.resolve(config);
-
-  this.interceptors.request.forEach(function unshiftRequestInterceptors(
+  this.interceptors.request.forEach(function unshiftRequestIntercepters(
     interceptor,
   ) {
     chain.unshift(interceptor.fulfilled, interceptor.rejected);
   });
 
-  this.interceptors.response.forEach(function pushResponseInterceptors(
+  this.interceptors.response.forEach(function pushResponseIntercepters(
     interceptor,
   ) {
     chain.push(interceptor.fulfilled, interceptor.rejected);
   });
 
+  let promise = Promise.resolve(config);
+
   while (chain.length) {
-    request.then(chain.shift(), chain.shift());
+    promise = promise.then(chain.shift(), chain.shift());
   }
 
-  return request;
+  return promise;
 };
-
-export default Axios;
-```

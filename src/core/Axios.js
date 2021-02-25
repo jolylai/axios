@@ -1,4 +1,5 @@
 import InterceptorManager from './InterceptorManager';
+import dispatchRequest from './dispatchRequest';
 
 function Axios(instanceConfig) {
   this.defaults = instanceConfig;
@@ -16,7 +17,7 @@ Axios.prototype.request = function request(config) {
     config = config || {};
   }
 
-  const chain = [undefined, undefined];
+  const chain = [dispatchRequest, undefined];
 
   const request = Promise.resolve(config);
 

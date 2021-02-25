@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>XHR</title>
+  </head>
+  <body>
+    <a id="btn">download</a>
+    <script src="./index.js"></script>
+    <script>
+      const fetch = () => {
+        return xhrAdapter({
+          url:
+            'https://raw.githubusercontent.com/lxchuan12/blog/master/docs/axios/xmind/axios-all.xmind',
+          method: 'get',
+          onDownloadProgress(event) {
+            console.log('event: ', event);
+          },
+          // responseType: 'blob',
+        });
+      };
+
+      async function download() {
+        const res = await fetch();
+        console.log('res: ', res);
+      }
+
+      const btn = document.getElementById('btn');
+      btn.addEventListener('click', function handleDownload() {
+        download();
+      });
+    </script>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-import { isDate, isObject, isURLSearchParams } from '../utils';
+import { forEach, isArray, isDate, isObject } from '../utils';
 
 function encode(val) {
   return encodeURIComponent(val)
@@ -16,25 +16,25 @@ const buildURL = (url, params, paramsSerializer) => {
     return url;
   }
 
-  const parts = [];
-
   let serializedParams;
+
+  const parts = [];
 
   if (paramsSerializer) {
     serializedParams = paramsSerializer(params);
-  } else if (isURLSearchParams(params)) {
-    serializedParams = params.toString();
   } else {
-    Object.keys(params).forEach(key => {
-      let val = params[key];
+    forEach(params, (val, key) => {
+      if (val == null) {
+        return;
+      }
 
-      if (Array.isArray(val)) {
+      if (isArray(val)) {
         key = `${key}[]`;
       } else {
         val = [val];
       }
 
-      val.forEach((v: any) => {
+      forEach(val, function parseValue(v) {
         if (isDate(v)) {
           v = v.toISOString();
         } else if (isObject(v)) {
@@ -49,13 +49,11 @@ const buildURL = (url, params, paramsSerializer) => {
   }
 
   if (serializedParams) {
-    // 去除 hash
     const hashmarkIndex = url.indexOf('#');
     if (hashmarkIndex > -1) {
       url = url.slice(0, hashmarkIndex);
     }
-
-    url += (url.indexOf('?') > -1 ? '&' : '?') + serializedParams;
+    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
   }
 
   return url;
