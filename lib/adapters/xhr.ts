@@ -12,16 +12,20 @@ interface Config {
   method: string;
   baseURL?: string;
   url: string;
+  data?: XMLHttpRequestBodyInit;
   headers?: Record<string, string>;
   responseType?: ResponseType;
   params?: Record<string, any>;
   paramsSerializer?: (params: Config['params']) => string;
+  onDownloadProgress?: (event: ProgressEvent) => void;
+  onUploadProgress?: (event: ProgressEvent) => void;
 }
 
-export default function xhr(config: Partial<Config>) {
+export default function xhr(config: Config) {
   return new Promise((resolve, reject) => {
-    const { responseType, headers, url } = config;
-    const xhr = new XMLHttpRequest();
+    const { responseType, headers, url, data } = config;
+
+    let xhr = new XMLHttpRequest();
 
     xhr.open(config.method.toUpperCase(), url, true);
 
@@ -54,6 +58,23 @@ export default function xhr(config: Partial<Config>) {
       });
     };
 
-    xhr.send(null);
+    // 超时
+    xhr.timeout = 5000;
+    xhr.ontimeout = function() {
+      reject(new Error('timeout'));
+    };
+
+    // 下载进度
+    if (typeof config.onDownloadProgress === 'function') {
+      xhr.onprogress = config.onDownloadProgress;
+    }
+
+    // 上传进度
+    if (typeof config.onUploadProgress === 'function') {
+      xhr.upload.onprogress = config.onUploadProgress;
+    }
+
+    // 发送请求
+    xhr.send(data ? data : null);
   });
 }

@@ -2,8 +2,6 @@
 title: XMLHttpRequest
 ---
 
-<code src="../../demo/upload" />
-
 ## 文件下载进度
 
 ```js

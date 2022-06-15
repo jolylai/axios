@@ -4,7 +4,7 @@ hero:
   desc: 通过 Axios 学习 HTTP 相关知识
   actions:
     - text: Getting Started
-      link: /guide
+      link: /axios
 features:
   - icon: https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/http.svg
     title: HTTP
@@ -18,11 +18,7 @@ features:
 footer: Copyright © 2020
 ---
 
-## Tasking
-
-[ ] build url
-
-## 参考
+**参考**
 
 - [Axios](https://github.com/axios/axios)
 - [umi-request](https://github.com/umijs/umi-request)
